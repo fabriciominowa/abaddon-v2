@@ -1,0 +1,22 @@
+print "Starting maya loading and fbx conversion \n";
+	
+if (`file -q -exists "C:/Users/Vinicius/DOCUME~1/GitHub/abaddon/abaddon/Assets/3DASSE~1/igreja/MODELO~1.MA"`)
+{		
+	file -o "C:/Users/Vinicius/DOCUME~1/GitHub/abaddon/abaddon/Assets/3DASSE~1/igreja/MODELO~1.MA";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "C:/Users/Vinicius/DOCUME~1/GitHub/abaddon/abaddon/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+sysFile -delete "C:/Users/Vinicius/DOCUME~1/GitHub/abaddon/abaddon/Temp/CommandPipe";
+
+$donepipeKill = `fopen "C:/Users/Vinicius/DOCUME~1/GitHub/abaddon/abaddon/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;
